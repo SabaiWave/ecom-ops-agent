@@ -18,3 +18,9 @@ next-env.d.ts
 
 # OS
 .DS_Store
+
+# Internal planning docs — not for public GitHub
+01_build_backend.md
+02_build_ui.md
+03_new_vertical.md
+04_client_handoff.md
