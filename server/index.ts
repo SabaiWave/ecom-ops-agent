@@ -206,17 +206,17 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
     switch (name) {
       case "get_order":
-        return await handleGetOrder(args as GetOrderArgs);
+        return await handleGetOrder(args as unknown as GetOrderArgs);
       case "get_product_info":
-        return await handleGetProductInfo(args as GetProductInfoArgs);
+        return await handleGetProductInfo(args as unknown as GetProductInfoArgs);
       case "check_return_eligibility":
         return await handleCheckReturnEligibility(
-          args as CheckReturnEligibilityArgs
+          args as unknown as CheckReturnEligibilityArgs
         );
       case "draft_response":
-        return await handleDraftResponse(args as DraftResponseArgs);
+        return await handleDraftResponse(args as unknown as DraftResponseArgs);
       case "escalate_to_human":
-        return await handleEscalateToHuman(args as EscalateToHumanArgs);
+        return await handleEscalateToHuman(args as unknown as EscalateToHumanArgs);
       default:
         return errorContent(`Unknown tool: ${name}`);
     }
