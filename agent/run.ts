@@ -95,16 +95,21 @@ export async function runAgent(
   const toolsCalled: string[] = [];
 
   // -- Connect to MCP server --------------------------------------------------
-  // Locally:  PROJECT_ROOT = __dirname/.. (agent/ → project root)
-  // On Vercel: __dirname is the compiled bundle path, so we use process.cwd()
-  //            which Vercel sets to the project root (/var/task/).
-  const PROJECT_ROOT = process.env["VERCEL"]
-    ? process.cwd()
-    : join(__dirname, "..");
+  // Locally:  PROJECT_ROOT derived from __dirname (agent/ → one level up)
+  // On Vercel: rootDirectory is "ui", so process.cwd() = /var/task/ (the function root).
+  //            server/data/config files are included via outputFileTracingIncludes
+  //            and live at PROJECT_ROOT/../ relative to cwd.
+  const isVercel = !!process.env["VERCEL"];
+  const PROJECT_ROOT = isVercel
+    ? join(process.cwd(), "..")   // ui/ → repo root where server/ lives
+    : join(__dirname, "..");      // agent/ → repo root
 
-  // Use the tsx binary directly so we don't need `node --import tsx/esm`.
-  // Absolute path ensures it's found regardless of PATH in the spawn environment.
-  const TSX_BIN = join(PROJECT_ROOT, "node_modules", ".bin", "tsx");
+  // tsx binary: on Vercel it's in ui/node_modules (rootDirectory = ui).
+  // Locally it's in the repo root node_modules.
+  const TSX_BIN = isVercel
+    ? join(process.cwd(), "node_modules", ".bin", "tsx")
+    : join(PROJECT_ROOT, "node_modules", ".bin", "tsx");
+
   const serverPath = join(PROJECT_ROOT, "server", "index.ts");
 
   const transport = new StdioClientTransport({
