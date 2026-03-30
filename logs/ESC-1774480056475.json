@@ -1,0 +1,13 @@
+{
+  "ticket_id": "ESC-1774480056475",
+  "timestamp": "2026-03-25T23:07:36.475Z",
+  "reason": "Refund amount of $54 exceeds auto-approve threshold and requires human review",
+  "urgency": "low",
+  "context": {
+    "customer_email": "sam.torres@email.com",
+    "order_ids": [
+      "1029"
+    ],
+    "summary": "Customer Sam Torres wants to return unopened Collagen Peptides from order #1029 (delivered March 6, 2026). Product is factory-sealed and within return window (19 days since delivery). Full refund of $54 is eligible but requires human approval due to amount threshold."
+  }
+}

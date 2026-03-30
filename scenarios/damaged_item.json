@@ -1,0 +1,5 @@
+{
+  "description": "Damaged item return — auto-approve under $50 threshold",
+  "conversation_id": "conv-damaged-001",
+  "message": "Hi, I ordered 3 days ago (order #1042) and haven't received a shipping update. I also want to return the item from my previous order (#1038) — it arrived damaged."
+}

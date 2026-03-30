@@ -1,0 +1,132 @@
+[
+  {
+    "order_id": "1038",
+    "customer_email": "maya.chen@email.com",
+    "customer_name": "Maya Chen",
+    "status": "delivered",
+    "placed_at": "2026-03-01T09:14:00Z",
+    "delivered_at": "2026-03-06T14:30:00Z",
+    "shipping_address": "412 Birchwood Ave, Austin, TX 78701",
+    "items": [
+      {
+        "product_id": "VTL-004",
+        "product_name": "Magnesium Glycinate 400mg",
+        "quantity": 1,
+        "unit_price": 28.00,
+        "line_total": 28.00
+      }
+    ],
+    "subtotal": 28.00,
+    "shipping": 0.00,
+    "total": 28.00,
+    "notes": "Customer reported item arrived damaged (bottle cracked, powder spilled)."
+  },
+  {
+    "order_id": "1042",
+    "customer_email": "maya.chen@email.com",
+    "customer_name": "Maya Chen",
+    "status": "in_transit",
+    "placed_at": "2026-03-23T11:52:00Z",
+    "delivered_at": null,
+    "shipping_address": "412 Birchwood Ave, Austin, TX 78701",
+    "tracking": {
+      "carrier": "UPS",
+      "tracking_number": "1Z999AA10123456784",
+      "last_update": "2026-03-23T18:00:00Z",
+      "last_location": "Dallas, TX"
+    },
+    "items": [
+      {
+        "product_id": "VTL-001",
+        "product_name": "Omega-3 Fish Oil 1200mg",
+        "quantity": 2,
+        "unit_price": 34.00,
+        "line_total": 68.00
+      },
+      {
+        "product_id": "VTL-002",
+        "product_name": "Vitamin D3 + K2 5000IU",
+        "quantity": 1,
+        "unit_price": 22.00,
+        "line_total": 22.00
+      }
+    ],
+    "subtotal": 90.00,
+    "shipping": 0.00,
+    "total": 90.00,
+    "notes": null
+  },
+  {
+    "order_id": "1035",
+    "customer_email": "jordan.riley@email.com",
+    "customer_name": "Jordan Riley",
+    "status": "delivered",
+    "placed_at": "2026-02-15T08:00:00Z",
+    "delivered_at": "2026-02-20T12:00:00Z",
+    "shipping_address": "88 Maple St, Denver, CO 80203",
+    "items": [
+      {
+        "product_id": "VTL-003",
+        "product_name": "Daily Probiotic 50B CFU",
+        "quantity": 1,
+        "unit_price": 38.00,
+        "line_total": 38.00
+      }
+    ],
+    "subtotal": 38.00,
+    "shipping": 0.00,
+    "total": 38.00,
+    "notes": null
+  },
+  {
+    "order_id": "1029",
+    "customer_email": "sam.torres@email.com",
+    "customer_name": "Sam Torres",
+    "status": "delivered",
+    "placed_at": "2026-03-01T15:30:00Z",
+    "delivered_at": "2026-03-06T10:00:00Z",
+    "shipping_address": "220 Ocean Dr, Miami, FL 33139",
+    "items": [
+      {
+        "product_id": "VTL-005",
+        "product_name": "Collagen Peptides Powder 300g",
+        "quantity": 1,
+        "unit_price": 54.00,
+        "line_total": 54.00
+      }
+    ],
+    "subtotal": 54.00,
+    "shipping": 0.00,
+    "total": 54.00,
+    "notes": "Customer opened product. Return requested outside 30-day window."
+  },
+  {
+    "order_id": "1044",
+    "customer_email": "priya.nair@email.com",
+    "customer_name": "Priya Nair",
+    "status": "processing",
+    "placed_at": "2026-03-25T20:10:00Z",
+    "delivered_at": null,
+    "tracking": null,
+    "items": [
+      {
+        "product_id": "VTL-001",
+        "product_name": "Omega-3 Fish Oil 1200mg",
+        "quantity": 1,
+        "unit_price": 34.00,
+        "line_total": 34.00
+      },
+      {
+        "product_id": "VTL-002",
+        "product_name": "Vitamin D3 + K2 5000IU",
+        "quantity": 1,
+        "unit_price": 22.00,
+        "line_total": 22.00
+      }
+    ],
+    "subtotal": 56.00,
+    "shipping": 0.00,
+    "total": 56.00,
+    "notes": null
+  }
+]

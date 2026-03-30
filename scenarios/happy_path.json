@@ -1,0 +1,5 @@
+{
+  "description": "Happy path — order status inquiry, no issues",
+  "conversation_id": "conv-happy-001",
+  "message": "Hey, just wanted to check on my order #1035. When should I expect it to arrive?"
+}

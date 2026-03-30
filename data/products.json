@@ -1,0 +1,162 @@
+[
+  {
+    "product_id": "VTL-001",
+    "name": "Omega-3 Fish Oil 1200mg",
+    "category": "Essential Fatty Acids",
+    "price": 34.00,
+    "sku": "VTL-OM3-1200",
+    "description": "Triple-strength, molecularly distilled fish oil for cardiovascular and cognitive support. Sourced from wild-caught anchovies and sardines.",
+    "serving_size": "2 softgels",
+    "servings_per_container": 60,
+    "ingredients": [
+      "Fish Oil Concentrate (anchovy, sardine)",
+      "EPA (Eicosapentaenoic Acid) 720mg",
+      "DHA (Docosahexaenoic Acid) 480mg",
+      "Gelatin (softgel shell)",
+      "Glycerin",
+      "Natural Lemon Flavor"
+    ],
+    "allergens": ["Fish"],
+    "certifications": ["Third-party tested", "No artificial preservatives", "Non-GMO"],
+    "faqs": [
+      {
+        "question": "Does this cause fishy burps?",
+        "answer": "Our oil is molecularly distilled and lemon-flavored to minimize aftertaste. Taking it with food further reduces this."
+      },
+      {
+        "question": "Is this safe if I take blood thinners?",
+        "answer": "High-dose omega-3 may interact with blood-thinning medications. Please consult your healthcare provider before use."
+      },
+      {
+        "question": "How should I store it?",
+        "answer": "Store in a cool, dry place. Refrigerate after opening to maintain freshness."
+      }
+    ]
+  },
+  {
+    "product_id": "VTL-002",
+    "name": "Vitamin D3 + K2 5000IU",
+    "category": "Vitamins",
+    "price": 22.00,
+    "sku": "VTL-D3K2-5000",
+    "description": "High-potency D3 paired with MK-7 form of K2 to support calcium absorption and direct it to bones — not arteries.",
+    "serving_size": "1 capsule",
+    "servings_per_container": 90,
+    "ingredients": [
+      "Vitamin D3 (Cholecalciferol) 5000IU",
+      "Vitamin K2 (as MK-7) 100mcg",
+      "Organic Extra Virgin Olive Oil",
+      "Capsule (HPMC, vegetarian)"
+    ],
+    "allergens": [],
+    "certifications": ["Vegan", "Gluten-free", "Non-GMO", "Third-party tested"],
+    "faqs": [
+      {
+        "question": "Is 5000IU too high for daily use?",
+        "answer": "5000IU is a commonly used therapeutic dose, but individual needs vary. If you're unsure about the right dose for you, consult your doctor — especially if you have kidney issues."
+      },
+      {
+        "question": "Why is K2 included?",
+        "answer": "K2 activates proteins that direct calcium to bones and teeth rather than soft tissue. D3 and K2 work synergistically."
+      },
+      {
+        "question": "When is the best time to take it?",
+        "answer": "Take with your largest meal of the day, as D3 is fat-soluble and absorbs better with dietary fat."
+      }
+    ]
+  },
+  {
+    "product_id": "VTL-003",
+    "name": "Daily Probiotic 50B CFU",
+    "category": "Gut Health",
+    "price": 38.00,
+    "sku": "VTL-PRO-50B",
+    "description": "Broad-spectrum probiotic with 10 clinically studied strains and 50 billion CFU per capsule. Shelf-stable — no refrigeration needed.",
+    "serving_size": "1 capsule",
+    "servings_per_container": 30,
+    "ingredients": [
+      "Probiotic Blend 50B CFU (Lactobacillus acidophilus, L. plantarum, L. rhamnosus, L. casei, Bifidobacterium longum, B. breve, B. lactis, Streptococcus thermophilus, L. fermentum, L. salivarius)",
+      "Prebiotic Fiber (FOS) 100mg",
+      "Capsule (HPMC, vegetarian)",
+      "Microcrystalline Cellulose"
+    ],
+    "allergens": ["Dairy traces (from fermentation)"],
+    "certifications": ["Shelf-stable", "Gluten-free", "Non-GMO", "Third-party tested"],
+    "faqs": [
+      {
+        "question": "Do I need to refrigerate this?",
+        "answer": "No — our probiotic uses a shelf-stable delivery system. Store at room temperature, away from direct sunlight and moisture."
+      },
+      {
+        "question": "Can I take this with antibiotics?",
+        "answer": "Yes, but take probiotics at least 2 hours apart from antibiotics to prevent the antibiotic from killing the probiotic strains."
+      },
+      {
+        "question": "How long until I notice a difference?",
+        "answer": "Most customers notice digestive improvements within 1–3 weeks of consistent use."
+      }
+    ]
+  },
+  {
+    "product_id": "VTL-004",
+    "name": "Magnesium Glycinate 400mg",
+    "category": "Minerals",
+    "price": 28.00,
+    "sku": "VTL-MAG-400",
+    "description": "Highly bioavailable magnesium bound to glycine for superior absorption and minimal digestive side effects. Supports sleep, muscle recovery, and stress response.",
+    "serving_size": "2 capsules",
+    "servings_per_container": 60,
+    "ingredients": [
+      "Magnesium (as Bisglycinate Chelate) 400mg",
+      "Capsule (HPMC, vegetarian)",
+      "Microcrystalline Cellulose",
+      "Magnesium Stearate (vegetable)"
+    ],
+    "allergens": [],
+    "certifications": ["Vegan", "Gluten-free", "Non-GMO", "Third-party tested"],
+    "faqs": [
+      {
+        "question": "Will this cause loose stools?",
+        "answer": "Magnesium glycinate is the gentlest form — unlike oxide or citrate, it rarely causes digestive upset at recommended doses."
+      },
+      {
+        "question": "Can I take this with my blood pressure medication?",
+        "answer": "Magnesium can interact with certain medications including blood pressure drugs and antibiotics. Please check with your doctor or pharmacist first."
+      },
+      {
+        "question": "When should I take it for sleep?",
+        "answer": "Take 30–60 minutes before bed to support relaxation and sleep quality."
+      }
+    ]
+  },
+  {
+    "product_id": "VTL-005",
+    "name": "Collagen Peptides Powder 300g",
+    "category": "Protein & Collagen",
+    "price": 54.00,
+    "sku": "VTL-COL-300",
+    "description": "Hydrolyzed Type I and III collagen peptides from grass-fed, pasture-raised bovine. Unflavored and dissolves completely — add to coffee, smoothies, or water.",
+    "serving_size": "1 scoop (10g)",
+    "servings_per_container": 30,
+    "ingredients": [
+      "Hydrolyzed Bovine Collagen Peptides (Type I & III)",
+      "Sunflower Lecithin (for mixability)"
+    ],
+    "allergens": ["Bovine (beef)"],
+    "certifications": ["Grass-fed & pasture-raised", "Gluten-free", "Paleo-friendly", "Non-GMO"],
+    "faqs": [
+      {
+        "question": "Does it dissolve in hot coffee?",
+        "answer": "Yes — our peptides are heat-stable and dissolve completely in hot or cold liquids without clumping."
+      },
+      {
+        "question": "Is this suitable for vegetarians?",
+        "answer": "No — this product is derived from bovine (beef) hide. It is not vegan or vegetarian."
+      },
+      {
+        "question": "How long does one bag last?",
+        "answer": "At one scoop per day, each 300g bag provides 30 servings — about one month's supply."
+      }
+    ]
+  }
+]

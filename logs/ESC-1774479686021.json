@@ -1,0 +1,11 @@
+{
+  "ticket_id": "ESC-1774479686021",
+  "timestamp": "2026-03-25T23:01:26.021Z",
+  "reason": "Customer mentions being on warfarin medication for heart condition and asking about drug interactions with Omega-3 Fish Oil supplement",
+  "urgency": "high",
+  "context": {
+    "customer_email": "",
+    "order_ids": [],
+    "summary": "Customer received Omega-3 Fish Oil order and is asking about safety/drug interactions while taking warfarin for a heart condition. This requires medical review as omega-3 supplements can potentially affect blood clotting and interact with anticoagulant medications like warfarin."
+  }
+}

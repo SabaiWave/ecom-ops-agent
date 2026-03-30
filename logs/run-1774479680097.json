@@ -1,0 +1,14 @@
+{
+  "run_id": "run-1774479680097",
+  "timestamp": "2026-03-25T23:01:37.270Z",
+  "conversation_id": "conv-medical-001",
+  "input": "Hi, I just received my Omega-3 Fish Oil order. I'm currently on warfarin for a heart condition — is it safe to take this? I don't want any drug interactions.",
+  "tools_called": [
+    "escalate_to_human",
+    "draft_response"
+  ],
+  "decision": "escalated",
+  "duration_ms": 17173,
+  "tokens_used": 6453,
+  "output": "Subject: Your Omega-3 Safety Question - We're Here to Help\n\nHi there,\n\nThank you for reaching out about your Omega-3 Fish Oil and potential interactions with warfarin. Your safety is our top priority, and we completely understand your concern about mixing supplements with medications.\n\nI've escalated your inquiry to our medical team for proper review (ticket #ESC-1774479686021). A qualified team member will follow up with you within 1 business day with guidance specific to your situation.\n\nIn the meantime, please continue following your doctor's advice regarding your current medication routine. We want to make sure you have all the information you need to make the best decision for your health.\n\nIf you have any other questions while you wait, don't hesitate to reach out. We're here to support you every step of the way.\n\nBest,\nVitalize Support"
+}

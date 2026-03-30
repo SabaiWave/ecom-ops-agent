@@ -1,0 +1,16 @@
+{
+  "run_id": "run-1774480046747",
+  "timestamp": "2026-03-25T23:07:46.315Z",
+  "conversation_id": "conv-highvalue-001",
+  "input": "Hi, I'd like to return my Collagen Peptides order (#1029). I haven't opened it — I changed my mind. Can I get a full refund?",
+  "tools_called": [
+    "get_order",
+    "check_return_eligibility",
+    "escalate_to_human",
+    "draft_response"
+  ],
+  "decision": "escalated",
+  "duration_ms": 19568,
+  "tokens_used": 11449,
+  "output": "Subject: Your Return Request - Order #1029\n\nHi Sam,\n\nThanks for reaching out about returning your unopened Collagen Peptides from order #1029.\n\nGood news — your return is eligible for a full refund. I've escalated your request to our returns team, and you'll hear from a team member within 1 business day with your return instructions and refund processing details.\n\nOnce your return is received and processed, you can expect your refund to appear in your original payment method within 3–5 business days.\n\nIs there anything else I can help you with today?\n\nBest,\nVitalize Support"
+}

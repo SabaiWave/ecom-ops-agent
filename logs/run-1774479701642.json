@@ -1,0 +1,15 @@
+{
+  "run_id": "run-1774479701642",
+  "timestamp": "2026-03-25T23:02:02.037Z",
+  "conversation_id": "conv-notfound-001",
+  "input": "Hi, I need help with my order #9999. I placed it last week and haven't heard anything.",
+  "tools_called": [
+    "get_order",
+    "escalate_to_human",
+    "draft_response"
+  ],
+  "decision": "escalated",
+  "duration_ms": 20394,
+  "tokens_used": 8286,
+  "output": "Hi there,\n\nI understand how concerning it can be when you can't find information about your order. I've looked into order #9999, and while I wasn't able to locate it in our standard system, I want to make sure we get to the bottom of this for you.\n\nI've escalated your inquiry to one of our human specialists who will dig deeper into what might have happened. You can expect to hear back from our team within 1 business day with a clear update on your order status.\n\nI really appreciate your patience as we work to resolve this. We're committed to making this right for you.\n\nIf you have any other questions in the meantime, please don't hesitate to reach out. I'm here to help.\n\nBest,\nVitalize Support"
+}

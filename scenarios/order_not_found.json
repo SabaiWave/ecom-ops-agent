@@ -1,0 +1,5 @@
+{
+  "description": "Order not found — invalid order ID, graceful error + escalation",
+  "conversation_id": "conv-notfound-001",
+  "message": "Hi, I need help with my order #9999. I placed it last week and haven't heard anything."
+}

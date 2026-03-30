@@ -1,0 +1,13 @@
+{
+  "ticket_id": "ESC-1774479711473",
+  "timestamp": "2026-03-25T23:01:51.473Z",
+  "reason": "Order #9999 cannot be found in the system after lookup",
+  "urgency": "medium",
+  "context": {
+    "customer_email": "not_provided",
+    "order_ids": [
+      "9999"
+    ],
+    "summary": "Customer inquiring about order #9999 placed last week with no updates received. Order lookup returned no results - order not found in system. Customer needs assistance locating their order and getting status update."
+  }
+}

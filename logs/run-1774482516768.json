@@ -1,0 +1,14 @@
+{
+  "run_id": "run-1774482516768",
+  "timestamp": "2026-03-25T23:48:49.385Z",
+  "conversation_id": null,
+  "input": "What is my order status for order #1035?",
+  "tools_called": [
+    "get_order",
+    "draft_response"
+  ],
+  "decision": "responded",
+  "duration_ms": 12617,
+  "tokens_used": 6033,
+  "output": "Hi Jordan,\n\nI looked up your order #1035 for you! Good news — it was successfully delivered on February 20th, 2026 to 88 Maple St, Denver, CO 80203. Your package contained 1x Daily Probiotic 50B CFU (total: $38).\n\nIf you haven't received it yet, I'd recommend checking with your building management or neighbors, as packages are sometimes left in common areas or accepted by someone else.\n\nLet me know if you need anything else — I'm here to help!\n\nBest,\nVitalize Support"
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "run-1774479664626",
+  "timestamp": "2026-03-25T23:01:18.703Z",
+  "conversation_id": "conv-happy-001",
+  "input": "Hey, just wanted to check on my order #1035. When should I expect it to arrive?",
+  "tools_called": [
+    "get_order",
+    "draft_response"
+  ],
+  "decision": "responded",
+  "duration_ms": 14077,
+  "tokens_used": 6058,
+  "output": "Subject: Your Order #1035 Delivery Update\n\nHi Jordan,\n\nGood news! I checked on your order #1035 and it was successfully delivered on February 20th, 2026 to 88 Maple St, Denver, CO 80203.\n\nSometimes packages can be left in unexpected spots or picked up by a neighbor or family member. I'd recommend checking around your front door, back porch, or with anyone else who might have accepted the delivery.\n\nIf you still can't locate your order after checking these areas, please let me know and I'll be happy to look into this further for you.\n\nThanks for choosing Vitalize, and feel free to reach out if you need anything else!\n\nVitalize Support"
+}

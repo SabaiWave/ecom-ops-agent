@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    // bundler moduleResolution: works with tsx (CLI) and Next.js (UI) without
+    // requiring explicit .js extensions on TypeScript imports
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "esnext",
+    "lib": ["esnext"],
+    "types": ["node"],
+
+    // Strictness
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Module behavior
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-01-01",
+  "summary": "Vitalize offers a 30-day return window from delivery date. Eligibility depends on product condition, reason for return, and whether the item was opened.",
+
+  "return_window_days": 30,
+
+  "eligible_conditions": [
+    {
+      "condition": "unopened",
+      "eligible": true,
+      "refund_type": "full",
+      "notes": "Unopened, factory-sealed product is always eligible within the return window."
+    },
+    {
+      "condition": "opened_unused",
+      "eligible": true,
+      "refund_type": "full",
+      "notes": "Opened but clearly unused (e.g., seal intact inside, no scooping). Eligible within return window."
+    },
+    {
+      "condition": "opened_used",
+      "eligible": true,
+      "refund_type": "partial",
+      "partial_refund_pct": 50,
+      "notes": "Partially used product. 50% refund if returned within window and less than half consumed."
+    },
+    {
+      "condition": "damaged_in_transit",
+      "eligible": true,
+      "refund_type": "full",
+      "notes": "Item arrived damaged or defective. Full refund regardless of whether it was opened. Customer does not need to return the item."
+    },
+    {
+      "condition": "wrong_item_sent",
+      "eligible": true,
+      "refund_type": "full",
+      "notes": "Incorrect item shipped. Full refund or free replacement, customer's choice."
+    }
+  ],
+
+  "ineligible_conditions": [
+    {
+      "condition": "outside_return_window",
+      "eligible": false,
+      "notes": "Returns requested more than 30 days after delivery are not accepted unless the item is damaged or defective."
+    },
+    {
+      "condition": "more_than_half_used",
+      "eligible": false,
+      "notes": "Products where more than half the contents have been consumed are not eligible for return."
+    },
+    {
+      "condition": "expired",
+      "eligible": false,
+      "notes": "Products past their expiration date at the time of return request are not eligible."
+    }
+  ],
+
+  "auto_approve_rules": {
+    "max_refund_for_auto_approve": 50,
+    "currency": "USD",
+    "notes": "Refunds at or below $50 are auto-approved by the agent. Refunds above $50 must be escalated to a human for review."
+  },
+
+  "process": {
+    "damaged_item": "Agent issues full refund automatically. No return shipping required. Customer keeps the item.",
+    "standard_return": "Agent confirms eligibility and issues refund or partial refund per condition rules.",
+    "escalation": "Agent escalates to human if refund exceeds auto-approve threshold, situation is ambiguous, or customer mentions a medical concern."
+  }
+}

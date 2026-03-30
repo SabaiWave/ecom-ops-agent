@@ -1,0 +1,22 @@
+{
+  "name": "ecom-ops-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Portfolio-grade AI agent for e-commerce customer ops, powered by Claude + MCP",
+  "scripts": {
+    "agent": "node --env-file=.env --import tsx/esm agent/index.ts",
+    "server": "node --env-file=.env --import tsx/esm server/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "@modelcontextprotocol/sdk": "^1.28.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}
