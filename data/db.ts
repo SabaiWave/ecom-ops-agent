@@ -11,13 +11,11 @@
  */
 
 import { readFile } from "fs/promises";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { join } from "path";
 
-// Resolve the data/ directory relative to this file, regardless of where
-// the process is invoked from
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = __dirname;
+// process.cwd() is the project root both locally and on Vercel (/var/task),
+// so this path is stable regardless of how/where this file gets bundled.
+const DATA_DIR = join(process.cwd(), "data");
 
 // ---------------------------------------------------------------------------
 // Types
