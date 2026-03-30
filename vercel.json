@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "installCommand": "npm install && cd ui && npm install",
+  "buildCommand": "cd ui && npm run build",
+  "outputDirectory": "ui/.next",
+  "rewrites": [{ "source": "/(.*)", "destination": "/$1" }]
+}

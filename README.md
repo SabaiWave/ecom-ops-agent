@@ -73,7 +73,7 @@ The agent escalates automatically (never guesses) when:
 ## Stack
 
 - **Runtime:** Node.js 20+
-- **Language:** TypeScript (ESM, `module: nodenext`)
+- **Language:** TypeScript (ESM, `moduleResolution: bundler`)
 - **AI:** Anthropic SDK — `claude-sonnet-4-20250514`
 - **Agent protocol:** Model Context Protocol (MCP) over stdio
 - **Data:** Local JSON files — Supabase-ready via `data/db.ts`
@@ -87,7 +87,8 @@ ecom-ops-agent/
 ├── config/
 │   └── store.ts              # Brand identity + business rules (edit to white-label)
 ├── agent/
-│   └── index.ts              # Agent loop, system prompt, CLI entry point, logging
+│   ├── index.ts              # CLI entry point
+│   └── run.ts                # runAgent() — importable function used by CLI + UI
 ├── server/
 │   └── index.ts              # MCP server with all 5 tool definitions
 ├── data/
@@ -95,6 +96,13 @@ ecom-ops-agent/
 │   ├── orders.json           # Mock orders
 │   ├── products.json         # Vitalize supplement catalog
 │   └── return_policy.json    # Return eligibility rules
+├── ui/                       # Next.js chat interface
+│   ├── app/
+│   │   ├── page.tsx          # Chat UI
+│   │   └── api/chat/route.ts # Streaming SSE endpoint — calls runAgent()
+│   ├── components/
+│   │   └── ChatWindow.tsx    # Message bubbles + live tool call feed
+│   └── lib/agent.ts          # Re-exports runAgent from backend
 ├── scenarios/                # Test inputs for each scenario type
 ├── logs/                     # Structured run logs (gitignored except .gitkeep)
 ├── .env.example
@@ -108,25 +116,47 @@ ecom-ops-agent/
 **Prerequisites:** Node.js 20+, an Anthropic API key
 
 ```bash
-# 1. Clone and install
+# 1. Clone and install root dependencies
 git clone <repo-url>
 cd ecom-ops-agent
 npm install
 
-# 2. Set up environment
+# 2. Set up environment for the CLI
 cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
+# Add your ANTHROPIC_API_KEY to .env
 
-# 3. Run the default scenario (core scenario from CLAUDE.md)
+# 3. Run the default scenario to verify everything works
 npm run agent
 ```
 
 ---
 
-## Running Scenarios
+## Running the Chat UI
 
 ```bash
-# Core scenario — shipping inquiry + damaged item return
+# 1. Install UI dependencies (one-time)
+cd ui
+npm install
+
+# 2. Set up environment for the UI
+cp ../.env.example .env.local
+# Add your ANTHROPIC_API_KEY to ui/.env.local
+
+# 3. Start the dev server
+npm run dev
+# Open http://localhost:3000
+```
+
+The UI streams tool calls in real time as the agent works — you'll see each tool fire before the final response arrives.
+
+---
+
+## Running CLI Scenarios
+
+```bash
+# From the project root
+
+# Core scenario — shipping inquiry + damaged item return (default)
 npm run agent
 
 # Run a specific scenario file

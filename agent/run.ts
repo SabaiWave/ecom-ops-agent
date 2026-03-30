@@ -20,7 +20,6 @@ import { STORE_CONFIG } from "../config/store";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LOGS_DIR = join(__dirname, "../logs");
-const SERVER_PATH = join(__dirname, "../server/index.ts");
 
 // ---------------------------------------------------------------------------
 // Types
@@ -96,14 +95,21 @@ export async function runAgent(
   const toolsCalled: string[] = [];
 
   // -- Connect to MCP server --------------------------------------------------
-  // Spawn the MCP server as a child process.
-  // cwd is set to the project root so that Node resolves tsx/esm and other
-  // local modules from the correct node_modules regardless of where the
-  // calling process was started (CLI from project root, Next.js from /ui).
-  const PROJECT_ROOT = join(__dirname, "..");
+  // Locally:  PROJECT_ROOT = __dirname/.. (agent/ → project root)
+  // On Vercel: __dirname is the compiled bundle path, so we use process.cwd()
+  //            which Vercel sets to the project root (/var/task/).
+  const PROJECT_ROOT = process.env["VERCEL"]
+    ? process.cwd()
+    : join(__dirname, "..");
+
+  // Use the tsx binary directly so we don't need `node --import tsx/esm`.
+  // Absolute path ensures it's found regardless of PATH in the spawn environment.
+  const TSX_BIN = join(PROJECT_ROOT, "node_modules", ".bin", "tsx");
+  const serverPath = join(PROJECT_ROOT, "server", "index.ts");
+
   const transport = new StdioClientTransport({
-    command: "node",
-    args: ["--import", "tsx/esm", SERVER_PATH],
+    command: TSX_BIN,
+    args: [serverPath],
     env: { ...process.env } as Record<string, string>,
     cwd: PROJECT_ROOT,
   });
