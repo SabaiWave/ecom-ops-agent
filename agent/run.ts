@@ -11,12 +11,13 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { writeFile } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 import { STORE_CONFIG } from "../config/store";
+import { createServer } from "../server/index";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LOGS_DIR = join(__dirname, "../logs");
@@ -94,26 +95,18 @@ export async function runAgent(
   const startTime = Date.now();
   const toolsCalled: string[] = [];
 
-  // -- Connect to MCP server --------------------------------------------------
-  // PROJECT_ROOT is always the repo root (one level up from agent/)
-  const PROJECT_ROOT = join(__dirname, "..");
-  const TSX_BIN = join(PROJECT_ROOT, "node_modules", ".bin", "tsx");
+  // -- Connect to MCP server (in-process, no subprocess) ---------------------
+  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
 
-  const serverPath = join(PROJECT_ROOT, "server", "index.ts");
-
-  const transport = new StdioClientTransport({
-    command: TSX_BIN,
-    args: [serverPath],
-    env: { ...process.env } as Record<string, string>,
-    cwd: PROJECT_ROOT,
-  });
+  const mcpServer = createServer();
+  await mcpServer.connect(serverTransport);
 
   const mcpClient = new Client(
     { name: "vitalize-agent", version: "1.0.0" },
     { capabilities: {} }
   );
 
-  await mcpClient.connect(transport);
+  await mcpClient.connect(clientTransport);
 
   // -- Fetch tool definitions from MCP server ---------------------------------
   const { tools: mcpTools } = await mcpClient.listTools();
@@ -246,9 +239,13 @@ export async function runAgent(
     output: finalOutput,
   };
 
-  // Write log to disk
-  const logPath = join(LOGS_DIR, `${runId}.json`);
-  await writeFile(logPath, JSON.stringify(log, null, 2), "utf-8");
+  // Best-effort log write — may fail in read-only environments (e.g. Vercel)
+  try {
+    const logPath = join(LOGS_DIR, `${runId}.json`);
+    await writeFile(logPath, JSON.stringify(log, null, 2), "utf-8");
+  } catch {
+    // Non-fatal
+  }
 
   return log;
 }

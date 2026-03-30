@@ -1,15 +1,17 @@
 /**
  * server/index.ts — Vitalize MCP Server
  *
- * Exposes 5 tools to the agent over stdio:
+ * Exposes 5 tools to the agent:
  *   1. get_order              — look up order by ID or email
  *   2. get_product_info       — fetch product details + FAQs
  *   3. check_return_eligibility — rules-based return decision
  *   4. draft_response         — generate customer reply via Claude
  *   5. escalate_to_human      — log structured handoff for human review
  *
+ * createServer() returns a configured Server instance — used by the agent
+ * with InMemoryTransport (no subprocess needed).
+ *
  * Run standalone: npm run server
- * Used by agent: spawned automatically via StdioClientTransport
  */
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
@@ -45,186 +47,190 @@ const anthropic = new Anthropic({
 });
 
 // ---------------------------------------------------------------------------
-// Server setup
+// Server factory — returns a configured Server ready to connect
 // ---------------------------------------------------------------------------
 
-const server = new Server(
-  { name: "vitalize-ecom-ops", version: "1.0.0" },
-  { capabilities: { tools: {} } }
-);
+export function createServer(): Server {
+  const server = new Server(
+    { name: "vitalize-ecom-ops", version: "1.0.0" },
+    { capabilities: { tools: {} } }
+  );
 
-// ---------------------------------------------------------------------------
-// Tool: list_tools
-// ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Tool: list_tools
+  // -------------------------------------------------------------------------
 
-server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [
-    {
-      name: "get_order",
-      description:
-        "Look up a customer order by order ID or email address. Returns order status, items, tracking info, and delivery date.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          order_id: {
-            type: "string",
-            description: "The order ID to look up (e.g. '1042')",
-          },
-          email: {
-            type: "string",
-            description:
-              "Customer email address — returns all orders for this email",
-          },
-        },
-      },
-    },
-    {
-      name: "get_product_info",
-      description:
-        "Fetch product details, ingredients, dosage, allergens, and FAQs by product ID or name search.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          product_id: {
-            type: "string",
-            description: "Exact product ID (e.g. 'VTL-001')",
-          },
-          name_query: {
-            type: "string",
-            description:
-              "Partial product name to search (e.g. 'omega' or 'magnesium')",
-          },
-        },
-      },
-    },
-    {
-      name: "check_return_eligibility",
-      description:
-        "Evaluate whether an order is eligible for return or refund based on the return policy, delivery date, and item condition.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          order_id: {
-            type: "string",
-            description: "The order ID to evaluate",
-          },
-          condition: {
-            type: "string",
-            enum: [
-              "unopened",
-              "opened_unused",
-              "opened_used",
-              "damaged_in_transit",
-              "wrong_item_sent",
-            ],
-            description: "The condition of the item being returned",
-          },
-        },
-        required: ["order_id", "condition"],
-      },
-    },
-    {
-      name: "draft_response",
-      description:
-        "Generate a customer-facing support reply in Vitalize's brand voice. Pass all relevant context — the response is written by Claude using the store's tone guidelines.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          customer_name: {
-            type: "string",
-            description: "Customer's first name for personalization",
-          },
-          issue_summary: {
-            type: "string",
-            description:
-              "Plain-language summary of the customer's issue(s) to address",
-          },
-          resolution: {
-            type: "string",
-            description:
-              "What was decided or will happen (e.g. 'full refund issued for order #1038, order #1042 is in transit and expected by...')",
-          },
-          order_ids: {
-            type: "array",
-            items: { type: "string" },
-            description: "Order IDs referenced in the response",
-          },
-          tone: {
-            type: "string",
-            enum: ["empathetic", "informational", "apologetic"],
-            description: "Tone to use for this response",
-          },
-        },
-        required: ["customer_name", "issue_summary", "resolution"],
-      },
-    },
-    {
-      name: "escalate_to_human",
-      description:
-        "Flag this conversation for human review. Use when: refund exceeds auto-approve threshold, customer mentions a medical condition or drug interaction, situation is ambiguous, or a tool failure occurred.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          reason: {
-            type: "string",
-            description: "Why this is being escalated",
-          },
-          urgency: {
-            type: "string",
-            enum: ["low", "medium", "high"],
-            description: "Urgency level for the human reviewer",
-          },
-          context: {
-            type: "object",
-            properties: {
-              customer_email: { type: "string" },
-              order_ids: {
-                type: "array",
-                items: { type: "string" },
-              },
-              summary: {
-                type: "string",
-                description: "Full situation summary for the human reviewer",
-              },
+  server.setRequestHandler(ListToolsRequestSchema, async () => ({
+    tools: [
+      {
+        name: "get_order",
+        description:
+          "Look up a customer order by order ID or email address. Returns order status, items, tracking info, and delivery date.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            order_id: {
+              type: "string",
+              description: "The order ID to look up (e.g. '1042')",
             },
-            required: ["customer_email", "order_ids", "summary"],
+            email: {
+              type: "string",
+              description:
+                "Customer email address — returns all orders for this email",
+            },
           },
         },
-        required: ["reason", "urgency", "context"],
       },
-    },
-  ],
-}));
+      {
+        name: "get_product_info",
+        description:
+          "Fetch product details, ingredients, dosage, allergens, and FAQs by product ID or name search.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            product_id: {
+              type: "string",
+              description: "Exact product ID (e.g. 'VTL-001')",
+            },
+            name_query: {
+              type: "string",
+              description:
+                "Partial product name to search (e.g. 'omega' or 'magnesium')",
+            },
+          },
+        },
+      },
+      {
+        name: "check_return_eligibility",
+        description:
+          "Evaluate whether an order is eligible for return or refund based on the return policy, delivery date, and item condition.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            order_id: {
+              type: "string",
+              description: "The order ID to evaluate",
+            },
+            condition: {
+              type: "string",
+              enum: [
+                "unopened",
+                "opened_unused",
+                "opened_used",
+                "damaged_in_transit",
+                "wrong_item_sent",
+              ],
+              description: "The condition of the item being returned",
+            },
+          },
+          required: ["order_id", "condition"],
+        },
+      },
+      {
+        name: "draft_response",
+        description:
+          "Generate a customer-facing support reply in Vitalize's brand voice. Pass all relevant context — the response is written by Claude using the store's tone guidelines.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            customer_name: {
+              type: "string",
+              description: "Customer's first name for personalization",
+            },
+            issue_summary: {
+              type: "string",
+              description:
+                "Plain-language summary of the customer's issue(s) to address",
+            },
+            resolution: {
+              type: "string",
+              description:
+                "What was decided or will happen (e.g. 'full refund issued for order #1038, order #1042 is in transit and expected by...')",
+            },
+            order_ids: {
+              type: "array",
+              items: { type: "string" },
+              description: "Order IDs referenced in the response",
+            },
+            tone: {
+              type: "string",
+              enum: ["empathetic", "informational", "apologetic"],
+              description: "Tone to use for this response",
+            },
+          },
+          required: ["customer_name", "issue_summary", "resolution"],
+        },
+      },
+      {
+        name: "escalate_to_human",
+        description:
+          "Flag this conversation for human review. Use when: refund exceeds auto-approve threshold, customer mentions a medical condition or drug interaction, situation is ambiguous, or a tool failure occurred.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            reason: {
+              type: "string",
+              description: "Why this is being escalated",
+            },
+            urgency: {
+              type: "string",
+              enum: ["low", "medium", "high"],
+              description: "Urgency level for the human reviewer",
+            },
+            context: {
+              type: "object",
+              properties: {
+                customer_email: { type: "string" },
+                order_ids: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                summary: {
+                  type: "string",
+                  description: "Full situation summary for the human reviewer",
+                },
+              },
+              required: ["customer_email", "order_ids", "summary"],
+            },
+          },
+          required: ["reason", "urgency", "context"],
+        },
+      },
+    ],
+  }));
 
-// ---------------------------------------------------------------------------
-// Tool: call_tool dispatcher
-// ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Tool: call_tool dispatcher
+  // -------------------------------------------------------------------------
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const { name, arguments: args } = request.params;
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    const { name, arguments: args } = request.params;
 
-  try {
-    switch (name) {
-      case "get_order":
-        return await handleGetOrder(args as unknown as GetOrderArgs);
-      case "get_product_info":
-        return await handleGetProductInfo(args as unknown as GetProductInfoArgs);
-      case "check_return_eligibility":
-        return await handleCheckReturnEligibility(
-          args as unknown as CheckReturnEligibilityArgs
-        );
-      case "draft_response":
-        return await handleDraftResponse(args as unknown as DraftResponseArgs);
-      case "escalate_to_human":
-        return await handleEscalateToHuman(args as unknown as EscalateToHumanArgs);
-      default:
-        return errorContent(`Unknown tool: ${name}`);
+    try {
+      switch (name) {
+        case "get_order":
+          return await handleGetOrder(args as unknown as GetOrderArgs);
+        case "get_product_info":
+          return await handleGetProductInfo(args as unknown as GetProductInfoArgs);
+        case "check_return_eligibility":
+          return await handleCheckReturnEligibility(
+            args as unknown as CheckReturnEligibilityArgs
+          );
+        case "draft_response":
+          return await handleDraftResponse(args as unknown as DraftResponseArgs);
+        case "escalate_to_human":
+          return await handleEscalateToHuman(args as unknown as EscalateToHumanArgs);
+        default:
+          return errorContent(`Unknown tool: ${name}`);
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      return errorContent(`Tool "${name}" failed: ${message}`);
     }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    return errorContent(`Tool "${name}" failed: ${message}`);
-  }
-});
+  });
+
+  return server;
+}
 
 // ---------------------------------------------------------------------------
 // Handler: get_order
@@ -250,7 +256,6 @@ async function handleGetOrder(args: GetOrderArgs) {
     return textContent(JSON.stringify({ found: true, order }));
   }
 
-  // email lookup
   const orders = await getOrdersByEmail(args.email!);
   return textContent(
     JSON.stringify({ found: orders.length > 0, count: orders.length, orders })
@@ -317,7 +322,6 @@ async function handleCheckReturnEligibility(
 
   const policy = await getReturnPolicy();
 
-  // Check delivery — can't process a return on an undelivered order
   if (!order.delivered_at) {
     return textContent(
       JSON.stringify({
@@ -329,14 +333,12 @@ async function handleCheckReturnEligibility(
     );
   }
 
-  // Calculate days since delivery
   const deliveredAt = new Date(order.delivered_at);
   const now = new Date();
   const daysSinceDelivery = Math.floor(
     (now.getTime() - deliveredAt.getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  // Damaged items bypass the return window — always eligible
   const bypassesWindow =
     args.condition === "damaged_in_transit" ||
     args.condition === "wrong_item_sent";
@@ -353,7 +355,6 @@ async function handleCheckReturnEligibility(
     );
   }
 
-  // Find the matching condition rule
   const rule = policy.eligible_conditions.find(
     (c) => c.condition === args.condition
   );
@@ -368,7 +369,6 @@ async function handleCheckReturnEligibility(
     );
   }
 
-  // Calculate refund amount
   const refundPct =
     rule.refund_type === "partial" ? (rule.partial_refund_pct ?? 50) / 100 : 1;
   const refundAmount = Math.round(order.total * refundPct * 100) / 100;
@@ -469,9 +469,13 @@ async function handleEscalateToHuman(args: EscalateToHumanArgs) {
     context: args.context,
   };
 
-  // Write to logs/ so the human review queue has a paper trail
-  const logPath = join(LOGS_DIR, `${ticketId}.json`);
-  await writeFile(logPath, JSON.stringify(escalationLog, null, 2), "utf-8");
+  // Best-effort log write — may fail in read-only environments (e.g. Vercel)
+  try {
+    const logPath = join(LOGS_DIR, `${ticketId}.json`);
+    await writeFile(logPath, JSON.stringify(escalationLog, null, 2), "utf-8");
+  } catch {
+    // Non-fatal — escalation still succeeds even if the file write fails
+  }
 
   return textContent(
     JSON.stringify({
@@ -499,16 +503,14 @@ function errorContent(message: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Start
+// CLI entry point — only runs when executed directly (npm run server)
 // ---------------------------------------------------------------------------
 
-async function main() {
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const server = createServer();
   const transport = new StdioServerTransport();
-  await server.connect(transport);
-  // MCP servers communicate over stdio — do not write to stdout after connect
+  server.connect(transport).catch((err) => {
+    console.error("MCP server crashed:", err);
+    process.exit(1);
+  });
 }
-
-main().catch((err) => {
-  console.error("MCP server crashed:", err);
-  process.exit(1);
-});
