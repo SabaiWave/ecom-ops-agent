@@ -4,19 +4,26 @@
   "type": "module",
   "description": "Portfolio-grade AI agent for e-commerce customer ops, powered by Claude + MCP",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "agent": "node --env-file=.env --import tsx/esm agent/index.ts",
     "server": "node --env-file=.env --import tsx/esm server/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
-    "@modelcontextprotocol/sdk": "^1.28.0"
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^5"
   }
 }

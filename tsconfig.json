@@ -1,22 +1,52 @@
 {
   "compilerOptions": {
-    // bundler moduleResolution: works with tsx (CLI) and Next.js (UI) without
+    // bundler moduleResolution: works with tsx (CLI) and Next.js without
     // requiring explicit .js extensions on TypeScript imports
     "module": "esnext",
     "moduleResolution": "bundler",
     "target": "esnext",
-    "lib": ["esnext"],
-    "types": ["node"],
-
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": [
+      "node"
+    ],
+    "jsx": "react-jsx",
     // Strictness
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
     // Module behavior
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    // Next.js paths
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

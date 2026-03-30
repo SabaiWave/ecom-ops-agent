@@ -9,7 +9,7 @@
  */
 
 import { useState, useRef, useEffect } from "react";
-import type { RunLog } from "../lib/agent.js";
+import type { RunLog } from "../agent/run";
 
 // ---------------------------------------------------------------------------
 // Types

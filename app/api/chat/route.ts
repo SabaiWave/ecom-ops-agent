@@ -12,7 +12,7 @@
  */
 
 import { NextRequest } from "next/server";
-import { runAgent } from "../../../lib/agent";
+import { runAgent } from "../../../agent/run";
 
 export const runtime = "nodejs";
 // Agent runs can take 20–30s — extend the default Vercel timeout
