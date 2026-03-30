@@ -1,4 +1,23 @@
+# Environment — never commit secrets
 .env
+.env.local
+ui/.env.local
+
+# Dependencies
 node_modules/
+ui/node_modules/
+
+# Run logs (keep .gitkeep, ignore actual log files)
 logs/*.json
+
+# Next.js build output
 .next/
+ui/.next/
+ui/out/
+
+# TypeScript build info
+*.tsbuildinfo
+ui/next-env.d.ts
+
+# OS
+.DS_Store
